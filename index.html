@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regex Generator</title>
+  </head>
+  <body>
+    <h1>Regular Expression Generator</h1>
+
+    <form id="regexForm">
+      <label>
+        Match digits:
+        <input type="checkbox" id="digits" /> </label
+      ><br />
+
+      <label>
+        Match lowercase letters:
+        <input type="checkbox" id="lowercase" /> </label
+      ><br />
+
+      <label>
+        Match uppercase letters:
+        <input type="checkbox" id="uppercase" /> </label
+      ><br />
+
+      <label>
+        Match special characters:
+        <input type="checkbox" id="specialChars" /> </label
+      ><br />
+
+      <label>
+        Length (optional):
+        <input type="number" id="length" min="1" /> </label
+      ><br /><br />
+
+      <button type="button" onclick="generateRegex()">Generate Regex</button>
+    </form>
+
+    <h2>Generated Regex:</h2>
+    <p id="regexOutput"></p>
+
+    <script>
+      function generateRegex() {
+        // Define the base components of the regex pattern
+        let regexParts = "[" // Start the character set
+
+        // Append specific character classes based on the form options
+        if (document.getElementById("digits").checked) {
+          regexParts += "\\d" // Digits
+        }
+        if (document.getElementById("lowercase").checked) {
+          regexParts += "a-z" // Lowercase letters
+        }
+        if (document.getElementById("uppercase").checked) {
+          regexParts += "A-Z" // Uppercase letters
+        }
+        if (document.getElementById("specialChars").checked) {
+          regexParts += "\\W" // Non-word characters (special chars)
+        }
+        regexParts += "]" // End the character set
+
+        // Get the length (if specified)
+        const length = document.getElementById("length").value
+        let quantifier = length ? `{${length}}` : "+" // Exact length or 1+ characters
+
+        // Generate the final regex pattern
+        const regexPattern = new RegExp(`^${regexParts}${quantifier}$`)
+
+        // Display the result
+        document.getElementById("regexOutput").innerText = regexPattern
+      }
+    </script>
+  </body>
+</html>
