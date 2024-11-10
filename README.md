@@ -1,1 +1,2 @@
-"# RegExGen" 
+# RegExGen
+## RegEx Generator
